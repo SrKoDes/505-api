@@ -1,2 +1,3 @@
 venv
 food_tracker/__pycache__
+food_tracker/__pycache__/*
