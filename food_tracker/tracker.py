@@ -10,7 +10,7 @@ json_file = 'PATH TO expiry.json (should probably change to a db)'
 
 
 def add_food(food, date, count=1):
-    if not os.path.exists("path that is value of json_file var"):
+    if not os.path.exists("path that is value):
         raise FileNotFoundError(f"Can't find the json file, {json_file}!")
     
     # Make sure date has the right # of digits(8)
