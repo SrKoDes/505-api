@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+
+import click
+import json
+import sys
+import os
+
+# click.echo(sys.path.append(os.path.dirname(__file__)))
+# sys.path.append(os.path.dirname("food_tracker"))
+from food_tracker import tracker
+# import expiry
+
+def pront(message):
+    click.echo(json.dumps(message, indent=4))
+
+@click.group()
+def kodes():
+    """Kohiin's CLI"""
+    pass
+
+@kodes.group()
+def expiry():
+    """Handles Food Spoilage Automation"""
+    pass
+
+@expiry.command()
+@click.option('-f', '--food', help="food item", required=True)
+@click.option('-d', '--date', help="expiry date", required=True)
+@click.option('-c', '--count', help="# of items, default is 1", default=1)
+def add_food(food, date, count=1):
+    pront(tracker.add_food(food, date, count))
+    
+
+@expiry.command()
+@click.option('-f', '--food', help="food item")
+@click.option('-d', '--date', help="expiry date")
+@click.option('-c', '--count', help="# of items, default is 1", default=1)
+def remove_food(food, date, count):
+    pront(tracker.remove_food(food, date, count))
+
+
+@expiry.command()
+def list_all():
+    pront(tracker.list_all())
+
+
+@expiry.command()
+def send_report():
+    pront(tracker.send_report())    
+
+
+if __name__ == "__main__":
+    kodes()
