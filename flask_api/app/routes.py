@@ -44,7 +44,7 @@ def manage_food():
         # If the array contains "food" with a different expiration date: "{food} - {expiry}"
 
         for item in data:
-            if item['food'] == food: # Food already exists.
+            if item['food'] == food: # Food already exists
                 if item['expiry'] == expiry: # Food has the same expiry
                     item['count'] += count # Update the count of the existing item
 
@@ -53,7 +53,7 @@ def manage_food():
                         json.dump(data, file)
 
                     return "Updated {} with new count: {}".format(food, item['count'])
-                else: #Implies that the food has a different expiry
+                else: # Implies that the food has a different expiry
                     food += "-" + expiry
 
         element = {
@@ -63,6 +63,7 @@ def manage_food():
             "timestamp": timestamp
         }
 
+        # Food is new so add new element to the list
         data.append(element)
         with open(json_filename, "w") as file:
             json.dump(data, file)
@@ -70,6 +71,7 @@ def manage_food():
         return "Added {} of {} that expires {}".format(count, food, expiry)
 #----------------------------------------------------------------------------------#
     elif request.method == "DELETE":
+        # Fast check to verify if food exists and return immediately if it does not
         if food not in [item['food'] for item in data]:
             return "{} does not exist".format(food)
 
